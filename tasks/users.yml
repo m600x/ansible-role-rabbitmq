@@ -17,3 +17,4 @@
     tags: "{{ item.tags | default('') }}"
   with_items: "{{ rabbitmq_users }}"
   run_once: "{{ rabbitmq_cluster }}"
+  no_log: true
