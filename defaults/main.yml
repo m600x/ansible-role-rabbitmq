@@ -33,7 +33,7 @@ rabbitmq_yum_repo_gpgkey: https://packagecloud.io/rabbitmq/rabbitmq-server/gpgke
 rabbitmq_yum_repo_gpgcheck: true
 
 rabbitmq_mirroring_policy:
-  name: ha-all
+  name: ha
   pattern: .*
   tags:
     ha-mode: all
