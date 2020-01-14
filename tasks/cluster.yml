@@ -23,3 +23,4 @@
     name: "{{ rabbitmq_mirroring_policy.name }}"
     pattern: "{{ rabbitmq_mirroring_policy.pattern }}"
     tags: "{{ rabbitmq_mirroring_policy.tags }}"
+  when: rabbitmq_mirroring_policy | default(false)
