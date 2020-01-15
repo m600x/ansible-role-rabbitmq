@@ -6,9 +6,6 @@
 
 - include: configure.yml
 
-- include: configure-cluster.yml
-  when: rabbitmq_cluster|bool
-
 - name: ensure rabbitmq-server is started
   service:
     name: rabbitmq-server
@@ -19,5 +16,4 @@
 
 - include: users.yml
 
-- include: cluster.yml
-  when: rabbitmq_cluster|bool and rabbitmq_nodename != rabbitmq_cluster_master
+- include: policies.yml
