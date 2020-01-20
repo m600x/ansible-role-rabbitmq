@@ -6,6 +6,9 @@
 
 - include: configure.yml
 
+- name: flush handlers
+  meta: flush_handlers
+
 - name: ensure rabbitmq-server is started
   service:
     name: rabbitmq-server
