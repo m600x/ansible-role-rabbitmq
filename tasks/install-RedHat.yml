@@ -19,4 +19,4 @@
     name: rabbitmq-server-{{ rabbitmq_version }}
     state: present
     update_cache: true
-  notify: restart rabbitmq-server
+    # The Yum package does NOT automatically start RabbitMQ, which give us a chance to apply custom config before first start
