@@ -1,15 +1,26 @@
 ---
+- name: set erlang cookie
+  template:
+    src: erlang.cookie.j2
+    dest: "{{ rabbitmq_erlang_cookie_file }}"
+    owner: rabbitmq
+    group: rabbitmq
+    mode: 0400
+  notify: restart rabbitmq-server
+
 - name: ensure old config file does not exist
   file:
     path: /etc/rabbitmq/rabbitmq.config
     state: absent
   notify: restart rabbitmq-server
+
 - name: configure rabbitmq
   template:
     src: rabbitmq.conf.j2
     dest: /etc/rabbitmq/rabbitmq.conf
   notify: restart rabbitmq-server
   when: rabbitmq_config is defined
+
 - name: configure rabbitmq environment
   template:
     src: rabbitmq-env.conf.j2

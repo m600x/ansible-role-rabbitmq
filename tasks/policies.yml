@@ -1,0 +1,12 @@
+---
+- name: manage policies
+  rabbitmq_policy:
+    name: "{{ item.name }}"
+    pattern: "{{ item.pattern }}"
+    tags: "{{ item.tags }}"
+    state: "{{ item.state | d('present') }}"
+    apply_to: "{{ item.apply_to | d(omit) }}"
+    node: "{{ item.node | d(omit) }}"
+    priority: "{{ item.priority | d(omit) }}"
+    vhost: "{{ item.vhost | d(omit) }}"
+  with_items: "{{ rabbitmq_policies }}"

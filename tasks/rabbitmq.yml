@@ -6,10 +6,10 @@
 
 - include: configure.yml
 
-- include: configure-cluster.yml
-  when: rabbitmq_cluster|bool
+- name: flush handlers
+  meta: flush_handlers
 
-- name: assure rabbitmq-server is started
+- name: ensure rabbitmq-server is started
   service:
     name: rabbitmq-server
     enabled: true
@@ -19,5 +19,4 @@
 
 - include: users.yml
 
-- include: cluster.yml
-  when: rabbitmq_cluster|bool and rabbitmq_nodename != rabbitmq_cluster_master
+- include: policies.yml

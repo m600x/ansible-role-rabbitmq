@@ -27,3 +27,5 @@
   apt:
     name: "rabbitmq-server={{ rabbitmq_version }}"
     state: present
+    # Prevent Rabbit from starting immediately after installation before we could apply custom config (including clustering)
+    policy_rc_d: 101 # 101 means "action forbidden by policy"
