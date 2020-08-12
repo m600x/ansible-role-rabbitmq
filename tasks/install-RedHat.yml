@@ -20,3 +20,4 @@
     state: present
     update_cache: true
     # The Yum package does NOT automatically start RabbitMQ, which give us a chance to apply custom config before first start
+  notify: "{{ rabbitmq_restart_handler }}"
