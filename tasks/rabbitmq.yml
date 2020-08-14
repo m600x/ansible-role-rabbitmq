@@ -15,6 +15,8 @@
     enabled: true
     state: started
 
+- include: cluster.yml
+
 - include: vhosts.yml
 
 - include: users.yml
