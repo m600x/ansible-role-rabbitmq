@@ -1,13 +1,7 @@
 ---
 - name: Retrieve current cluster name
-  shell: 'rabbitmqctl cluster_status | grep -oP "Cluster name: \K(.*)"'
-  changed_when: False  # read only
-  check_mode: False
-  register: cluster_name
+  rabbitmq_global_parameter:
+    name: cluster_name
+    value: "{{ rabbitmq_cluster_name | to_json }}"
+    state: present
   when: rabbitmq_cluster_name | default("", True) != ""
-
-- name: Set cluster name
-  command: "rabbitmqctl set_cluster_name {{ rabbitmq_cluster_name }}"
-  when: >
-    rabbitmq_cluster_name | default("", True) != ""
-    and cluster_name.stdout != rabbitmq_cluster_name
