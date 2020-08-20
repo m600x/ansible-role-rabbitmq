@@ -2,7 +2,10 @@
 - name: include rabbitmq installation tasks
   include: install-{{ ansible_os_family }}.yml
 
-- include: plugins.yml
+- name: enable offline plugins
+  include: plugins.yml
+  vars:
+    _rabbitmq_plugins: "{{ rabbitmq_offline_plugins }}"
 
 - include: configure.yml
 
@@ -14,6 +17,11 @@
     name: rabbitmq-server
     enabled: true
     state: started
+
+- name: enable online plugins
+  include: plugins.yml
+  vars:
+    _rabbitmq_plugins: "{{ rabbitmq_online_plugins }}"
 
 - include: cluster.yml
 

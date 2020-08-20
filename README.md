@@ -92,24 +92,22 @@ Set the `rabbitmq_plugins` variable to define an array of enabled plugins.
 
 ```yaml
 rabbitmq_plugins:
-  - rabbitmq_management
+  - name: rabbitmq_management
+    broker_state: online
   - name: rabbitmq_delayed_message_exchange
     url: http://www.rabbitmq.com/community-plugins/v3.6.x/rabbitmq_delayed_message_exchange-0.0.1.ez
 ```
 
-| parameter | required | default | choices | comments            |
-| --------- | -------- | ------- | ------- | ------------------- |
-| name      | yes      |         |         |                     |
-| url       | no       |         |         | Installs the plugin |
+| parameter    | required | default | choices             | comments            |
+| -------------| -------- | ------- | ------------------- | ------------------- |
+| name         | yes      |         |                     |                     |
+| broker_state | no       | online  | [online, offline]   |                     |
+| url          | no       |         |                     | Installs the plugin |
+| state        | no       | enabled | [enabled, disabled] |                     |
 
 ### Disable Plugins
 
-Set the `rabbitmq_plugins_disabled` variable to disable plugins.
-
-```yaml
-rabbitmq_plugins_disabled:
-  - rabbitmq_management
-```
+Set the `state` of a plugin to disabled.
 
 ## Configuration
 
