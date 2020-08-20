@@ -1,4 +1,6 @@
 ---
 rabbitmq_nodename: "rabbit@{{ ansible_hostname }}"
 
-rabbitmq_plugins_enabled: []
+rabbitmq_disabled_plugins: "{{ rabbitmq_plugins | selectattr('state', 'defined') | selectattr('state', 'equalto', 'disabled') | list }}"
+rabbitmq_offline_plugins: "{{ rabbitmq_plugins | difference(rabbitmq_disabled_plugins) | selectattr('broker_state', 'defined') | selectattr('broker_state', 'equalto', 'offline') | list }}"
+rabbitmq_online_plugins: "{{ rabbitmq_plugins | difference(rabbitmq_disabled_plugins) | difference(rabbitmq_offline_plugins) | list }}"

@@ -6,9 +6,7 @@ rabbitmq_erlang_cookie_file: /var/lib/rabbitmq/.erlang.cookie
 rabbitmq_plugin_dir: "/usr/lib/rabbitmq/lib/rabbitmq_server-{{ rabbitmq_version }}/plugins"
 
 rabbitmq_plugins:
-  - rabbitmq_management
-
-rabbitmq_plugins_disabled: []
+  - name: rabbitmq_management
 
 rabbitmq_users:
   - user: admin
