@@ -33,6 +33,7 @@ rabbitmq_users:
 | parameter      | required | default | choices | comments |
 | -------------- | -------- | ------- | ------- | -------- |
 | configure_priv | no       | .*      |         |          |
+| node           | no       | rabbit  |         |          |
 | password       | yes      |         |         |          |
 | read_priv      | no       | .*      |         |          |
 | tags           | no       |         |         |          |
