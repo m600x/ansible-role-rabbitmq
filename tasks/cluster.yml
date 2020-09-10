@@ -3,5 +3,6 @@
   rabbitmq_global_parameter:
     name: cluster_name
     value: "{{ rabbitmq_cluster_name | to_json }}"
+    node: "{{ rabbitmq_node_name | default(ansible_env.RABBITMQ_NODENAME) | default('rabbit') }}"
     state: present
   when: rabbitmq_cluster_name | default("", True) != ""

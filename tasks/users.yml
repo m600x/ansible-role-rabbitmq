@@ -1,7 +1,8 @@
 ---
 - name: remove rabbitmq users
   rabbitmq_user:
-    user: "{{ item }}"
+    user: "{{ item.user | default(item) }}"
+    node: "{{ item.node | default(ansible_env.RABBITMQ_NODENAME) | default('rabbit') }}"
     state: absent
   with_items: "{{ rabbitmq_users_absent }}"
   run_once: "{{ rabbitmq_cluster }}"
@@ -9,6 +10,7 @@
 - name: add rabbitmq users
   rabbitmq_user:
     user: "{{ item.user }}"
+    node: "{{ item.node | default(ansible_env.RABBITMQ_NODENAME) | default('rabbit') }}"
     password: "{{ item.password }}"
     vhost: "{{ item.vhost | default('/') }}"
     configure_priv: "{{ item.configure_priv | default('.*') }}"
