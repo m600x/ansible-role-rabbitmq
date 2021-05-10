@@ -31,4 +31,7 @@ rabbitmq_yum_gpgcheck: false
 rabbitmq_yum_repo_gpgkey: https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 rabbitmq_yum_repo_gpgcheck: true
 
+rabbitmq_apt_repo_gpgkey: https://packages.erlang-solutions.com/debian/erlang_solutions.asc
+rabbitmq_apt_repo: "deb https://packages.erlang-solutions.com/debian {{ ansible_distribution_release }} contrib"
+
 rabbitmq_policies: []

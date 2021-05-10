@@ -1,11 +1,12 @@
 - name: Add an apt key by id for rabbitmq
   apt_key:
-    url: https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+    url: "{{ rabbitmq_apt_repo_gpgkey }}"
     state: present
+    become: true
 
 - name: Add apt repository for erlang
   apt_repository:
-    repo: "deb http://dl.bintray.com/rabbitmq-erlang/debian {{ ansible_distribution_release }} erlang-{{ erlang_version|default('22.x') }}"
+    repo: "{{ rabbitmq_apt_repo }}"
     filename: rabbitmq_erlang
     update_cache: no
 
