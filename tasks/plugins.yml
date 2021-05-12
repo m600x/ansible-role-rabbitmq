@@ -4,14 +4,17 @@
     url: "{{ item.url }}"
     dest: "{{ rabbitmq_plugin_dir }}"
   with_items: "{{ _rabbitmq_plugins }}"
+  become: true
   when: item.url is defined
 
 - name: disable rabbitmq plugins
   rabbitmq_plugin:
     names: "{{ rabbitmq_disabled_plugins | map(attribute='name') | list | join(',') }}"
     state: disabled
+  become: true
 
 - name: enable rabbitmq plugins
   rabbitmq_plugin:
     names: "{{ _rabbitmq_plugins | map(attribute='name') | list | join(',') }}"
     new_only: True  # To prevent online plugins installation from removing offline ones and vice versa.
+  become: true

@@ -1,14 +1,16 @@
-- name: Add an apt key by id for rabbitmq
+- name: Add an apt key by id for erlang
   apt_key:
-    url: "{{ rabbitmq_apt_repo_gpgkey }}"
+    keyserver: "{{ erlang_apt_repo_gpgkey_server }}"
+    id: "{{ erlang_apt_repo_gpgkey_id }}"
     state: present
-    become: true
+  become: true
 
 - name: Add apt repository for erlang
   apt_repository:
-    repo: "{{ rabbitmq_apt_repo }}"
+    repo: "{{ erlang_apt_repo_url }}"
     filename: rabbitmq_erlang
     update_cache: no
+  become: true
 
 - name: Set package erlang preference
   copy:
@@ -17,6 +19,7 @@
       Package: erlang*
       Pin: release o=Bintray
       Pin-Priority: 1000
+  become: true
 
 - name: Pin RabbitMQ version
   copy:
@@ -25,13 +28,22 @@
       Package: rabbitmq-server
       Pin: version {{ rabbitmq_version }}
       Pin-Priority: 1002
+  become: true
   when: rabbitmq_pin_version | bool == True
+
+- name: Add an apt key by id for rabbitmq
+  apt_key:
+    keyserver: "{{ rabbitmq_apt_repo_gpgkey_server }}"
+    id: "{{ rabbitmq_apt_repo_gpgkey_id }}"
+    state: present
+  become: true
 
 - name: Add apt repository for rabbitmq
   apt_repository:
-    repo: "deb https://dl.bintray.com/rabbitmq/debian {{ ansible_distribution_release }} main"
+    repo: "{{ rabbitmq_apt_repo_url }}"
     filename: rabbitmq_main
     update_cache: yes
+  become: true
 
 - name: Install RabbitMQ
   apt:
@@ -39,3 +51,4 @@
     state: present
     # Prevent Rabbit from starting immediately after installation before we could apply custom config (including clustering)
     policy_rc_d: 101 # 101 means "action forbidden by policy"
+  become: true

@@ -7,12 +7,14 @@
     group: rabbitmq
     mode: 0400
   notify: "{{ rabbitmq_restart_handler }}"
+  become: true
 
 - name: ensure old config file does not exist
   file:
     path: /etc/rabbitmq/rabbitmq.config
     state: absent
   notify: "{{ rabbitmq_restart_handler }}"
+  become: true
 
 - name: configure rabbitmq
   template:
@@ -20,6 +22,7 @@
     dest: /etc/rabbitmq/rabbitmq.conf
   notify: "{{ rabbitmq_restart_handler }}"
   when: rabbitmq_config is defined
+  become: true
 
 - name: configure rabbitmq environment
   template:
@@ -27,3 +30,4 @@
     dest: /etc/rabbitmq/rabbitmq-env.conf
   notify: "{{ rabbitmq_restart_handler }}"
   when: rabbitmq_env is defined
+  become: true

@@ -31,7 +31,12 @@ rabbitmq_yum_gpgcheck: false
 rabbitmq_yum_repo_gpgkey: https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 rabbitmq_yum_repo_gpgcheck: true
 
-rabbitmq_apt_repo_gpgkey: https://packages.erlang-solutions.com/debian/erlang_solutions.asc
-rabbitmq_apt_repo: "deb https://packages.erlang-solutions.com/debian {{ ansible_distribution_release }} contrib"
+erlang_apt_repo_gpgkey_id: "F77F1EDA57EBB1CC"
+erlang_apt_repo_gpgkey_server: "keyserver.ubuntu.com"
+erlang_apt_repo_url: "deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main"
+
+rabbitmq_apt_repo_gpgkey_id: "F6609E60DC62814E"
+rabbitmq_apt_repo_gpgkey_server: "keyserver.ubuntu.com"
+rabbitmq_apt_repo_url: "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main"
 
 rabbitmq_policies: []

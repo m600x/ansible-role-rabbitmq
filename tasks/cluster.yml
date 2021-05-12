@@ -1,8 +1,28 @@
 ---
-- name: Retrieve current cluster name
+- name: Set cluster_name parameter
   rabbitmq_global_parameter:
     name: cluster_name
     value: "{{ rabbitmq_cluster_name | to_json }}"
     node: "{{ rabbitmq_node_name | default(ansible_env.RABBITMQ_NODENAME) | default('rabbit') }}"
     state: present
+  become: true
+  register: cluster_change
   when: rabbitmq_cluster_name | default("", True) != ""
+  notify: restart rabbitmq-server
+
+
+- name: Cluster | Stop rabbitmq app on slave node
+  command: rabbitmqctl stop_app
+  become: true
+  when: cluster_change.changed and inventory_hostname != rabbitmq_cluster_master_node
+
+- name: Cluster | Joining rabbitmq cluster on slave node
+  command: "rabbitmqctl join_cluster {{ rabbitmq_cluster_master }}"
+  register: cluster_joined
+  become: true
+  when: cluster_change.changed and inventory_hostname != rabbitmq_cluster_master_node
+
+- name: Cluster | Starting rabbitmq app
+  command: rabbitmqctl start_app
+  become: true
+  when: cluster_change.changed and inventory_hostname != rabbitmq_cluster_master_node

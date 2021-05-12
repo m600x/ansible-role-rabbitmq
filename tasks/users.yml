@@ -6,6 +6,7 @@
     state: absent
   with_items: "{{ rabbitmq_users_absent }}"
   run_once: "{{ rabbitmq_cluster }}"
+  become: true
 
 - name: add rabbitmq users
   rabbitmq_user:
@@ -20,3 +21,4 @@
   with_items: "{{ rabbitmq_users }}"
   run_once: "{{ rabbitmq_cluster }}"
   no_log: true
+  become: true

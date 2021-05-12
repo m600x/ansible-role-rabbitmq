@@ -4,6 +4,7 @@
     name: "{{ item }}"
     state: absent
   with_items: "{{ rabbitmq_vhosts_absent }}"
+  become: true
 
 - name: add rabbitmq virtual hosts
   rabbitmq_vhost:
@@ -12,3 +13,4 @@
     state: present
     tracing: "{{ item.tracing | default(False) }}"
   with_items: "{{ rabbitmq_vhosts }}"
+  become: true

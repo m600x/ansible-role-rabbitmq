@@ -17,6 +17,7 @@
     name: rabbitmq-server
     enabled: true
     state: started
+  become: true
 
 - name: enable online plugins
   include: plugins.yml

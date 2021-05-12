@@ -10,3 +10,4 @@
     priority: "{{ item.priority | d(omit) }}"
     vhost: "{{ item.vhost | d(omit) }}"
   with_items: "{{ rabbitmq_policies }}"
+  become: true
