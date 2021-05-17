@@ -4,13 +4,14 @@
     name: "{{ item }}"
     state: absent
   with_items: "{{ rabbitmq_vhosts_absent }}"
+  run_once: "{{ rabbitmq_cluster }}"
   become: true
 
 - name: add rabbitmq virtual hosts
   rabbitmq_vhost:
     name: "{{ item.name | default(item) }}"
     node: "{{ item.node | default('rabbit') }}"
-    state: present
     tracing: "{{ item.tracing | default(False) }}"
   with_items: "{{ rabbitmq_vhosts }}"
+  run_once: "{{ rabbitmq_cluster }}"
   become: true

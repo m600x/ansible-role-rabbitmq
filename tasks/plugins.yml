@@ -17,4 +17,5 @@
   rabbitmq_plugin:
     names: "{{ _rabbitmq_plugins | map(attribute='name') | list | join(',') }}"
     new_only: True  # To prevent online plugins installation from removing offline ones and vice versa.
+  when: _rabbitmq_plugins | length > 0
   become: true
