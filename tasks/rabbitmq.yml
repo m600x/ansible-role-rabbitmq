@@ -1,13 +1,13 @@
 ---
 - name: include rabbitmq installation tasks
-  include: install-{{ ansible_os_family }}.yml
+  include_tasks: install-{{ ansible_os_family }}.yml
 
 - name: enable offline plugins
-  include: plugins.yml
+  include_tasks: plugins.yml
   vars:
     _rabbitmq_plugins: "{{ rabbitmq_offline_plugins }}"
 
-- include: configure.yml
+- include_tasks: configure.yml
 
 - name: flush handlers
   meta: flush_handlers
@@ -20,14 +20,14 @@
   become: true
 
 - name: enable online plugins
-  include: plugins.yml
+  include_tasks: plugins.yml
   vars:
     _rabbitmq_plugins: "{{ rabbitmq_online_plugins }}"
 
-- include: cluster.yml
+- include_tasks: cluster.yml
 
-- include: vhosts.yml
+- include_tasks: vhosts.yml
 
-- include: users.yml
+- include_tasks: users.yml
 
-- include: policies.yml
+- include_tasks: policies.yml
